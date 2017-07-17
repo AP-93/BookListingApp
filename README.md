@@ -1,7 +1,7 @@
 # Book Listing App
 
-This appThis app displays books and authors based search parameters.
-The data is retrieved from Google Books API.
+The user can enter a word or phrase to serve as a search query. 
+The app fetches book data related to the query via an HTTP request from the Google Books API
 
 #
 
