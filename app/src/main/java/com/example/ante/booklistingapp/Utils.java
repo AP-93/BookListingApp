@@ -108,9 +108,15 @@ public class Utils {
 
                 //get string from JSONObject
                 String bookName = bookInfo.getString("title");
-                //get JSONArray for authors and call method to convert array to string
-                JSONArray authorsArray = bookInfo.getJSONArray("authors");
-                String authors = convertAuthorArrayToString(authorsArray);
+
+                String authors;
+                if (bookInfo.has("authors")) {
+                    // get JSONArray for authors and call method to convert array to string
+                    JSONArray authorsArray = bookInfo.getJSONArray("authors");
+                    authors = convertAuthorArrayToString(authorsArray);
+                } else {
+                   authors = "N/A";
+                }
 
                 //add strings bookName and authors to Book object
                 Book book = new Book(bookName, authors);
