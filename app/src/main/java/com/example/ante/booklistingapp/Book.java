@@ -11,23 +11,16 @@ public class Book {
     public Book(String vBookName, String vAuthorName) {
 
         mBookName = vBookName;
-        mAuthorName= vAuthorName;
+        mAuthorName = vAuthorName;
     }
 
     public String getmBookName() {
         return mBookName;
     }
 
-    public void setmBookName(String mBookName) {
-        this.mBookName = mBookName;
-    }
-
     public String getmAuthorName() {
         return mAuthorName;
     }
 
-    public void setmAuthorName(String mAuthorName) {
-        this.mAuthorName = mAuthorName;
-    }
 }
 

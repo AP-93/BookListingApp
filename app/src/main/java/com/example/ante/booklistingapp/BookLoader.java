@@ -4,12 +4,11 @@ package com.example.ante.booklistingapp;
  * Created by Ante on 17/07/2017.
  */
 
-
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
-
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -19,17 +18,21 @@ import java.util.ArrayList;
  */
 public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
-    /** Tag for log messages */
+    /**
+     * Tag for log messages
+     */
     private static final String LOG_TAG = BookLoader.class.getName();
 
-    /** Query URL */
-    private String mUrl ;
+    /**
+     * Query URL
+     */
+    private String mUrl;
 
     /**
      * Constructs a new {@link BookLoader}.
      *
      * @param context of the activity
-     * @param url to load data from
+     * @param url     to load data from
      */
     public BookLoader(Context context, String url) {
         super(context);
@@ -47,33 +50,40 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
     @Override
     public ArrayList<Book> loadInBackground() {
 
-
-        URL url = createUrl(createStringUrl());
         String jsonResponse = "";
-
 
         if (mUrl == null) {
             return null;
         }
+        //creates URL object from string
+        URL url = createUrl(mUrl);
 
-
+        //call makeHttpRequest method from Utils.class and return json as string
         try {
             jsonResponse = Utils.makeHttpRequest(url);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
 
-        ArrayList<Book> books = parseJson(jsonResponse);
+        if (jsonResponse == null) {
+            return null;
+        }
+        //call getBooks method from Utils.class to parse string jsonResponse
+        ArrayList<Book> books = Utils.getBooks(jsonResponse);
         return books;
 
     }
-    private ArrayList<Book> parseJson(String json) {
 
-        if (json == null) {
-            return null;
+    /**
+     * Returns new URL object from the given string URL.
+     */
+    private static URL createUrl(String stringUrl) {
+        URL url = null;
+        try {
+            url = new URL(stringUrl);
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Error with creating URL ", e);
         }
-
-        ArrayList<Book> books =  Utils.getBooks(json);
-        return books;
+        return url;
     }
 }

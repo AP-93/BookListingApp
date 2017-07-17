@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Book Listing App</string>
     <string name="search">search...</string>
+    <string name="no_results_checks_spelling_or_try_different_name">No results.\n Enter name of book or author</string>
 </resources>
